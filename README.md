@@ -1,2 +1,4 @@
 # Babosaditas-de-arduino
-Nada
+Cositas divertidas almacenadas en esta repo mientras hago mi servidor en una banana : )
+
+* IGNORAR 
