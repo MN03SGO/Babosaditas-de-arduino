@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Sensores</title>
+    <link rel="stylesheet" href="styl/aS_style.css">
+</head>
+<body>
+      <header class="header">
+
+    <div class="titulo">
+      <a href="index.html">PROYECTO CASA DOMÓTICA</a>
+    </div>
+
+    <nav class="nav">
+
+      <ul>
+        <li><a href="actLed.html">Activación LED</a></li>
+        <li><a href="actP.html">Activacion Puerta</a></li>
+      </ul>
+
+    </nav>
+  </header>
+  <main>
+    <h1>Control de Sensores</h1>
+    <div class="contenedor-sensores">
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+      <button id="boton-sensor" class="sensor-boton" onclick="cambiarEstadoSensor()">Desactivado</button>
+    </div>
+    <script>
+      function cambiarEstadoSensor() {
+        const boton = event.target;
+        const activado = boton.classList.toggle("activado");
+        boton.textContent = activado ? "Activado" : "Desactivado";
+      }
+    </script>
+  </main>
+
+  <footer class="footer">
+  <div class="footer-content">
+
+    <p class="ascii-logo">
+      <span class="prompt">🖥️</span> /home/proyecto/Casa_Domótica$
+    </p>
+
+    <p class="desc">Automatización inteligente con código abierto 🐧🏠 </p> 
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Proyecto Casa Domótica. Todos los derechos reservados.</p>
+      <p>Distribuido bajo licencia MIT - Made with 💻 and ☕ on Linux</p>
+    </div>
+
+</footer>
+</body>
+</html>

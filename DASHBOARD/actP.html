@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Control de Puerta</title>
+  <link rel="stylesheet" href="styl/aP_style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="titulo">
+      <a href="index.html">PROYECTO CASA DOMÓTICA</a>
+    </div>
+
+    <nav class="nav">
+
+      <ul>
+        <li><a href="actLed.html">Activación LED</a></li>
+        <li><a href="actS.html">Activación Sensores</a></li>
+      </ul>
+      
+    </nav>
+
+  </header>
+
+  <main>
+    <h1>Control de Puerta</h1>
+    <div class="contenedor-puerta">
+      <button id="boton-puerta" class="puerta-boton" onclick="cambiarEstadoPuerta()">Cerrado</button>
+    </div>
+  </main>
+
+  <script>
+    function cambiarEstadoPuerta() {
+      const boton = document.getElementById("boton-puerta");
+      const abierto = boton.classList.toggle("abierto");
+      boton.textContent = abierto ? "Abierto" : "Cerrado";
+    }
+  </script>
+
+  <footer class="footer">
+  <div class="footer-content">
+
+    <p class="ascii-logo">
+      <span class="prompt">🖥️</span> /home/proyecto/Casa_Domótica$
+    </p>
+
+    <p class="desc">Automatización inteligente con código abierto 🐧🏠 </p> 
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Proyecto Casa Domótica. Todos los derechos reservados.</p>
+      <p>Distribuido bajo licencia MIT - Made with 💻 and ☕ on Linux</p>
+    </div>
+
+</footer>
+</body>
+</html>
