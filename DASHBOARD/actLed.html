@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Control de LEDs</title>
+  <link rel="stylesheet" href="styl/aL_style.css" />
+</head>
+
+<body>
+  <header class="header">
+    
+    <div class="titulo">
+      <a href="index.html">PROJECTO CASA DOMOTICA</a>
+    </div>
+
+    <nav class="nav">
+      <ul>
+        <li><a href="actP.html">Activación Puerta</a></li>
+        <li><a href="actS.html">Activación Sensores</a></li>
+      
+      </ul>
+    </nav>
+  </header>
+
+<main>
+  <h1>Panel de Control de LEDs</h1>
+
+  <!-- Botón global -->
+  <div class="control-general">
+    <button id="boton-general" class="control-boton gris" onclick="cambiarTodos()">Prender todos</button>
+  </div>
+
+  <!-- Botones LED -->
+  <div class="contenedor">
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+    <button class="led-boton" onclick="cambiarEstado(this)">Apagado</button>
+  </div>
+
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+
+    <p class="ascii-logo">
+      <span class="prompt">🖥️</span> /home/proyecto/Casa_Domótica$
+    </p>
+
+    <p class="desc">Automatización inteligente con código abierto 🐧🏠 </p> 
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Proyecto Casa Domótica. Todos los derechos reservados.</p>
+      <p>Distribuido bajo licencia MIT - Made with 💻 and ☕ on Linux</p>
+    </div>
+
+</footer>
+
+<script>
+  function cambiarEstado(boton) {
+    const encendido = boton.classList.toggle("encendido");
+    boton.textContent = encendido ? "Encendido" : "Apagado";
+
+    // Al presionar un botón individual, el botón general vuelve a gris
+    const botonGeneral = document.getElementById("boton-general");
+    botonGeneral.className = "control-boton gris";
+    botonGeneral.textContent = "Prender todos";
+  }
+
+  function cambiarTodos() {
+    const botones = document.querySelectorAll(".led-boton");
+    const botonGeneral = document.getElementById("boton-general");
+    const activando = botonGeneral.textContent === "Prender todos";
+
+    botones.forEach(boton => {
+      if (activando && !boton.classList.contains("encendido")) {
+        boton.classList.add("encendido");
+        boton.textContent = "Encendido";
+      } else if (!activando && boton.classList.contains("encendido")) {
+        boton.classList.remove("encendido");
+        boton.textContent = "Apagado";
+      }
+    });
+
+    // Cambiar color y texto del botón general
+    if (activando) {
+      botonGeneral.className = "control-boton rojo";
+      botonGeneral.textContent = "Apagar todos";
+    } else {
+      botonGeneral.className = "control-boton gris";
+      botonGeneral.textContent = "Prender todos";
+    }
+  }
+</script>
+
+
+</body>
+
+</html>
