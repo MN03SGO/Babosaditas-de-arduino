@@ -1,0 +1,131 @@
+#include <WiFi.h>
+#include <WebServer.h>
+#include <ESP32Servo.h> 
+
+const char* ssid = "SIGARAN"; // COSTRA CAMBIALA POR EL NOMBRE DE LA RED
+const char* password = "Vi0315SG"; // CONTRA DE LA RED
+
+
+//07-11-2023
+//POR ALGUNA RAZON LA BATERIA NO LE DA ENERGIA A LA ESP32, YA QUE COMO EMULA EL MINI SERVIDOR WEB NECESITA MAS ENERGIA
+
+int pos_centro = 90;
+int pos_izquierda = 45;
+int pos_derecha = 135;
+
+Servo miServo;         
+int pinServo = 13 ;    //SERVO 
+
+
+WebServer server(80);
+String paginaHTML = R"rawliteral(
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barquito</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    #btn-izquierda { background: #3498db; }
+    #btn-centro { background: #2ecc71; }
+    #btn-derecha { background: #3498db; }
+  </style>
+</head>
+<body>
+  <h1>Control de Servo</h1>
+  <a href="/izquierda" id="btn-izquierda">Izquierda</a>
+  <a href="/centro" id="btn-centro">Centro</a>
+  <a href="/derecha" id="btn-derecha">Derecha</a>
+</body>
+</html>
+
+)rawliteral";
+
+void handleRoot() {
+  server.send(200, "text/html", paginaHTML); 
+void handleIzquierda() {
+  miServo.write(pos_izquierda);
+  Serial.println("Moviendo a la izquierda");
+  server.sendHeader("Location", "/");
+  server.send(302, "text/plain", "Moviendo...");
+}
+void handleCentro() {
+  miServo.write(pos_centro);
+  Serial.println("Moviendo al centro");
+  server.sendHeader("Location", "/");
+  server.send(302, "text/plain", "Moviendo...");
+}
+
+void handleDerecha() {
+  miServo.write(pos_derecha);
+  Serial.println("Moviendo a la derecha");
+  server.sendHeader("Location", "/");
+  server.send(302, "text/plain", "Moviendo...");
+}
+
+void handleNotFound() {
+  server.send(404, "text/plain", "404: No encontrado");
+}
+
+void setup() {
+  Serial.begin(115200);
+  miServo.attach(pinServo);
+  miServo.write(pos_centro);
+  Serial.println("Servo iniciado en el centro.");
+
+  Serial.print("Conectando a ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.print(".");
+    intentos++;
+  }
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n¡Conexión WiFi exitosa!");
+    Serial.print("Dirección IP del servidor: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\nNo se pudo conectar al WiFi. Creando Punto de Acceso (AP)...");
+    WiFi.softAP("ESP32-Control-Servo", "12345678");
+    Serial.print("IP del AP: ");
+    Serial.println(WiFi.softAPIP());
+    Serial.println("Conéctate a la red 'ESP32-Control-Servo' (pass: 12345678)");
+    Serial.println("IR A http://192.168.4.1 PARA CONTROLAR");
+  }
+
+
+  server.on("/", handleRoot);            
+  server.on("/izquierda", handleIzquierda); 
+  server.on("/centro", handleCentro);      
+  server.on("/derecha", handleDerecha);    
+  server.onNotFound(handleNotFound);    
+
+
+  server.begin();
+  Serial.println("Proyecto  barquito tecnologica");
+}
+
+
+
+void loop() {
+  server.handleClient();
+}
